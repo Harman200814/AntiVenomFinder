@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="brand-cross">+</span>
+    <span data-i18n="brand">AntiVenom Finder</span>
+  </div>
+  <nav>
+    <button type="button" id="langToggle" class="lang-toggle" data-i18n="langBtn">हिंदी</button>
+    <a href="about.html" data-i18n="navAbout">About</a>
+    <a href="precautions.html" data-i18n="navPrecautions">Precautions</a>
+    <a href="contacts.html" data-i18n="navContacts">Contacts</a>
+    <a href="help.html" data-i18n="navHelp">Help</a>
+    <a href="hospital-login.html" data-i18n="navHospital">Hospital Portal</a>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <span class="brand-cross large">+</span>
+    <h1 data-i18n="heroTitle">You're in the right place</h1>
+    <p data-i18n="heroSub">This takes under a minute: identify the snake, then find nearby hospitals with reported antivenom stock.</p>
+  </div>
+
+  <div class="stat-banner">
+    <span data-i18n="statBanner">An estimated 58,000+ people die from snakebite in India every year — one of the highest tolls in the world — and most deaths are preventable with timely antivenom.</span>
+    <span class="stat-source" data-i18n="statSource">Source: Suraweera et al., eLife 2020</span>
+  </div>
+
+  <div class="trust-badges">
+    <span class="trust-badge" data-i18n="trust1">✔ Hospitals reviewed by site operator</span>
+    <span class="trust-badge" data-i18n="trust2">🔒 Passwords encrypted</span>
+    <span class="trust-badge" data-i18n="trust3">📍 Real-time distance</span>
+  </div>
+  <div class="trust-strip" id="trustStrip"></div>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0a5f57" stroke-width="2"><path d="M12 8v5M12 16h.01" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>
+    <span data-i18n="notice"><strong>While you use this app:</strong> keep the person calm and still, keep the bitten limb below heart level, and call a hospital or ambulance right away. This app supports that call — it doesn't replace it.</span>
+  </div>
+
+  <div class="stepper" id="stepper">
+    <div class="dot active" data-step="1"><div class="circle">1</div><span data-i18n="step1">Identify</span></div>
+    <div class="dot" data-step="2"><div class="circle">2</div><span data-i18n="step2">Location</span></div>
+    <div class="dot" data-step="3"><div class="circle">3</div><span data-i18n="step3">Hospitals</span></div>
+  </div>
+
+  <!-- STEP 1: Identify (manual only — see README for why photo-AI was removed) -->
+  <section id="step1" class="card">
+    <h2 data-i18n="whichSnake">Which snake was it?</h2>
+    <p class="small" data-i18n="whichSnakeHelp">Tap the snake that matches what you saw. Real reference photos help confirmation. Not sure? Ask the chat assistant — or skip straight to finding a hospital.</p>
+    <div class="snake-grid" id="snakeGrid"></div>
+    <div class="btn-row">
+      <button class="btn secondary" id="skipIdBtn" data-i18n="skipHospital">Skip — I just need a hospital</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: Location -->
+  <section id="step2" class="card step-hidden">
+    <h2 data-i18n="yourLocation">Your location</h2>
+    <div class="btn-row">
+      <button class="btn secondary" id="useLocationBtn" data-i18n="useMyLocation">📍 Use my location</button>
+    </div>
+    <p class="small" id="locationStatus" data-i18n="addressHint">Or type your address — suggestions appear as you type (OpenStreetMap):</p>
+    <label data-i18n="addressLabel">Address / place</label>
+    <div class="autocomplete-wrap">
+      <input type="text" id="addressInput" data-i18n-placeholder="addressPlaceholder" placeholder="e.g. Model Town, Ludhiana" autocomplete="off" />
+      <ul id="addressSuggestions" class="suggestions step-hidden"></ul>
+    </div>
+    <p class="small" id="resolvedAddress"></p>
+    <details class="coords-details">
+      <summary class="small" data-i18n="advancedCoords">Advanced: enter coordinates manually</summary>
+      <label>Latitude</label>
+      <input type="text" id="latInput" placeholder="30.90" />
+      <label>Longitude</label>
+      <input type="text" id="lngInput" placeholder="75.85" />
+      <p class="small">Demo hospitals are near Ludhiana, Punjab (try 30.90, 75.85).</p>
+    </details>
+    <div class="btn-row">
+      <button class="btn" id="findHospitalsBtn" data-i18n="findHospitals">Find Hospitals</button>
+      <button class="btn secondary" id="backToIdBtn" data-i18n="back">← Back</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: Results -->
+  <section id="step3" class="card step-hidden">
+    <h2 data-i18n="nearbyHospitals">Nearby hospitals</h2>
+    <p class="small" id="searchingFor"></p>
+    <div id="resultsMap"></div>
+    <div id="hospitalList"></div>
+    <div class="btn-row">
+      <button class="btn secondary" id="startOverBtn" data-i18n="startOver">Start Over</button>
+    </div>
+  </section>
+
+  <!-- Optional incident report -->
+  <section id="reportSection" class="card step-hidden">
+    <h2 data-i18n="reportTitle">Help improve this system (optional)</h2>
+    <p class="small" data-i18n="reportHelp">Sharing a few details helps track regional snakebite patterns. No name required.</p>
+    <label>Contact phone (optional)</label>
+    <input type="tel" id="reportPhone" placeholder="e.g. +91 98765 43210" />
+    <label>Notes (optional)</label>
+    <textarea id="reportNotes" placeholder="e.g. bite location, time, anything unusual"></textarea>
+    <div class="btn-row">
+      <button class="btn secondary" id="submitReportBtn" data-i18n="submit">Submit</button>
+    </div>
+    <div id="reportStatus" class="success-text"></div>
+  </section>
+
+  <div class="card precaution-teaser">
+    <h2 data-i18n="preventionTitle">Prevention matters as much as treatment</h2>
+    <p class="small" data-i18n="preventionSub">Most snakebites are preventable. Closed shoes, a flashlight at night, and clearing brush around your home cut risk significantly.</p>
+    <a class="btn secondary" href="precautions.html" data-i18n="preventionLink">See full precautions guide →</a>
+  </div>
+</main>
+
+<footer>
+  <a href="about.html">About</a> ·
+  <a href="precautions.html">Precautions</a> ·
+  <a href="contacts.html">Contacts</a> ·
+  <a href="help.html">Help &amp; Support</a> ·
+  <a href="hospital-login.html">Hospital Portal</a>
+</footer>
+
+<!-- Chatbot -->
+<button id="chatToggle" aria-label="Open assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5 8.4 8.4 0 01-3.5-.75L4 21l1.75-4.5A8.5 8.5 0 1121 11.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<div id="chatPanel" class="step-hidden">
+  <div class="chat-header">
+    <span data-i18n="chatTitle">Snakebite Assistant</span>
+    <button id="chatClose">×</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" data-i18n-placeholder="chatPlaceholder" placeholder="Ask a question…" />
+    <button id="chatSend" data-i18n="chatSend">Send</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

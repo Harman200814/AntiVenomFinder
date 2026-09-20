@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Help & Support — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="brand-cross">+</span>AntiVenom Finder</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="precautions.html">Precautions</a>
+    <a href="contacts.html">Contacts</a>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Help &amp; Support</h1>
+    <p>First-aid basics, how the app works, and what to do if something isn't working.</p>
+  </div>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0a5f57" stroke-width="2"><path d="M12 8v5M12 16h.01" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>
+    <span><strong>Active emergency?</strong> Call your local emergency number now (in India: 108 or 112) in addition to using this app.</span>
+  </div>
+
+  <div class="card">
+    <h2>Snakebite first aid</h2>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q">What should I do immediately? <span class="chev">⌄</span></button>
+        <div class="faq-a">Keep the person calm and as still as possible — movement speeds venom spread. Keep the bitten limb below heart level and loosely immobilized (a splint helps). Remove rings, watches, or tight clothing near the bite before swelling starts. Get to a hospital immediately.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What should I avoid doing? <span class="chev">⌄</span></button>
+        <div class="faq-a">Don't apply a tight tourniquet, cut the wound, try to suck out venom, apply ice, or give the person alcohol or caffeine. None of these help, and several can cause additional harm.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Should I try to catch or kill the snake? <span class="chev">⌄</span></button>
+        <div class="faq-a">No. Don't risk a second bite. If it's safe to do so from a distance, a photo can help — but never delay getting to a hospital to get one.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Using this app</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">How accurate is the identification? <span class="chev">⌄</span></button>
+        <div class="faq-a">If you select a snake manually because you know what it was, that's as accurate as your own identification. The photo-analysis option is an automated estimate, not a diagnosis — it can be wrong, especially with unclear photos, which is why you're always asked to confirm or correct it before continuing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What do the green/yellow/red dots mean? <span class="chev">⌄</span></button>
+        <div class="faq-a">Green: stock reported available within the last hour. Yellow: reported available, but the update is older — call ahead to confirm. Red: not currently reported as available at that hospital.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do hospitals get listed? <span class="chev">⌄</span></button>
+        <div class="faq-a">Hospitals register themselves, but every new registration starts as "pending" and is reviewed by the site operator before it appears publicly. This prevents fake or unverified hospital entries from showing up in search results.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my data shared? <span class="chev">⌄</span></button>
+        <div class="faq-a">Hospital stock levels are public by design — that's the point of the app. If you submit the optional incident report, your notes and phone number (if provided) are stored in the app's database for regional tracking purposes and aren't displayed publicly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Something not working?</h2>
+    <p class="small">Use the chat assistant on the main page for quick questions. For technical issues (the app won't start, an error appears, a page looks broken), note the exact error message and check the project's README file for troubleshooting steps.</p>
+  </div>
+</main>
+
+<script>
+document.querySelectorAll(".faq-q").forEach((btn) => {
+  btn.addEventListener("click", () => btn.parentElement.classList.toggle("open"));
+});
+</script>
+</body>
+</html>

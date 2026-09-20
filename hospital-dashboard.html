@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hospital Dashboard — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 10h6M12 7v6" stroke-linecap="round"/></svg>
+    <span id="hospitalNameHeader">Dashboard</span>
+  </div>
+  <nav>
+    <a href="index.html">Public site</a>
+    <a href="#" id="logoutLink">Log out</a>
+  </nav>
+</header>
+
+<main>
+  <div id="statusBanner" class="notice step-hidden"></div>
+
+  <div class="card">
+    <h2>Antivenom Inventory</h2>
+    <p class="small">Update stock anytime. Changes are saved to the database and show in public search once your registration is approved. Green / yellow / red status is based on availability and how recently you updated.</p>
+    <div id="inventoryList"></div>
+    <div class="btn-row">
+      <button class="btn" id="saveBtn">Save all updates</button>
+      <button class="btn secondary" id="markAllAvailableBtn">Mark all available</button>
+      <span class="small" id="saveStatus"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Doctor Contacts</h2>
+    <p class="small">These appear publicly on the site's Contacts page so patients can reach the right specialist.</p>
+    <div id="doctorList"></div>
+    <label>Doctor name</label>
+    <input type="text" id="doctorName" placeholder="Dr. Full Name" />
+    <label>Specialty</label>
+    <input type="text" id="doctorSpecialty" placeholder="e.g. Emergency Medicine / Toxicology" />
+    <label>Phone</label>
+    <input type="tel" id="doctorPhone" placeholder="+91 ..." />
+    <div class="btn-row">
+      <button class="btn secondary" id="addDoctorBtn">Add Doctor</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your registration</h2>
+    <p class="small" id="regInfo">Loading…</p>
+  </div>
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

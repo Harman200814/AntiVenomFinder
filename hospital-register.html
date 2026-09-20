@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Register Hospital — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 10h6M12 7v6" stroke-linecap="round"/></svg>
+    Hospital Portal
+  </div>
+  <nav><a href="index.html">← Public site</a></nav>
+</header>
+
+<main>
+  <div class="card" style="max-width:520px; margin: 30px auto 0;">
+    <h2>Register Your Hospital</h2>
+    <p class="small">New registrations start as <strong>pending</strong>. The site operator reviews and approves every hospital before it appears in public search. You can log in and prepare inventory while you wait.</p>
+
+    <label>Hospital Name</label>
+    <input type="text" id="name" placeholder="e.g. City General Hospital" />
+
+    <label>Address</label>
+    <div class="autocomplete-wrap">
+      <input type="text" id="address" placeholder="Start typing street, area, city…" autocomplete="off" />
+      <ul id="addressSuggestions" class="suggestions step-hidden"></ul>
+    </div>
+    <p class="small" id="geoStatus">Type your address — coordinates are filled automatically from the suggestion you pick. No need to look up latitude/longitude.</p>
+
+    <div class="btn-row" style="margin-top:8px;">
+      <button type="button" class="btn secondary" id="useGpsBtn">📍 Use GPS for this device</button>
+    </div>
+
+    <details class="coords-details" style="margin-top:12px;">
+      <summary class="small">Advanced: override coordinates</summary>
+      <label>Latitude</label>
+      <input type="text" id="lat" placeholder="auto-filled" />
+      <label>Longitude</label>
+      <input type="text" id="lng" placeholder="auto-filled" />
+    </details>
+
+    <label>Phone</label>
+    <input type="tel" id="phone" placeholder="+91 ..." />
+    <label>Email</label>
+    <input type="email" id="email" placeholder="you@hospital.org" />
+    <label>Password</label>
+    <input type="password" id="password" placeholder="At least 6 characters" />
+
+    <div class="btn-row">
+      <button class="btn" id="registerBtn">Create Account</button>
+    </div>
+    <div id="errorMsg" class="error-text"></div>
+    <div class="link-line">Already registered? <a href="hospital-login.html">Log in</a></div>
+  </div>
+</main>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

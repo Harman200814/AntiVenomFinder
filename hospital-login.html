@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hospital Login — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 10h6M12 7v6" stroke-linecap="round"/></svg>
+    Hospital Portal
+  </div>
+  <nav><a href="index.html">← Public site</a></nav>
+</header>
+
+<main>
+  <div class="card" style="max-width:420px; margin: 40px auto 0;">
+    <h2>Hospital Login</h2>
+    <p class="small">Demo login: <strong>govt.hospital@demo.local</strong> / <strong>demo1234</strong></p>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="you@hospital.org" />
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" />
+    <div class="btn-row">
+      <button class="btn" id="loginBtn">Log In</button>
+    </div>
+    <div id="errorMsg" class="error-text"></div>
+    <div class="link-line">No account yet? <a href="hospital-register.html">Register your hospital</a></div>
+    <div class="link-line"><a href="admin-login.html">Site operator login →</a></div>
+  </div>
+</main>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

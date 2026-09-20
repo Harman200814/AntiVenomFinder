@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Panel — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">Site Operator Panel</div>
+  <nav>
+    <a href="index.html">Public site</a>
+    <a href="#" id="logoutLink">Log out</a>
+  </nav>
+</header>
+
+<main class="wide-main">
+  <div class="card">
+    <h2>Hospital Registrations</h2>
+    <p class="small">Approve a hospital to make it appear in public search results. Reject or leave pending to keep it hidden. This is what keeps unverified/fake hospital data out of public view.</p>
+    <div style="overflow-x:auto;">
+      <table class="admin-table" id="hospitalTable">
+        <thead>
+          <tr><th>Name</th><th>Address</th><th>Contact</th><th>Registered</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody id="hospitalRows"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

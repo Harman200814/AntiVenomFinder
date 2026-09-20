@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Site Admin Login — AntiVenom Finder</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">Site Operator</div>
+  <nav><a href="index.html">← Public site</a></nav>
+</header>
+
+<main>
+  <div class="card" style="max-width:400px; margin: 40px auto 0;">
+    <h2>Admin Login</h2>
+    <p class="small">Site operator login. Credentials are loaded from the server <code>.env</code> file (never stored as plain text in the database).</p>
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Admin username" autocomplete="username" />
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+    <div class="btn-row">
+      <button class="btn" id="loginBtn">Log In</button>
+    </div>
+    <div id="errorMsg" class="error-text"></div>
+  </div>
+</main>
+
+<script>
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+  const res = await fetch("/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  if (res.ok) {
+    window.location.href = "admin.html";
+  } else {
+    const data = await res.json();
+    document.getElementById("errorMsg").textContent = data.error || "Login failed.";
+  }
+});
+document.getElementById("password").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("loginBtn").click();
+});
+</script>
+</body>
+</html>
